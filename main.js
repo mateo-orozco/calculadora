@@ -7,32 +7,43 @@ const multi = document.getElementById("multi")
 const division = document.getElementById("divi")
 const igual = document.getElementById("equal")
 const borrar = document.getElementById("AC")
+for(let i=0;i<=9;i++){
+    document.getElementById("num"+i).addEventListener("click",presion)
+}
+function presion(e){
+    display.innerText=display.innerText+e.target.innerText
+}
 igual.addEventListener("click",()=>{
-    switch (operador.innerText) {
-        case "+" :
-            display.innerText=(parseInt(valor[1].value)  +  parseInt(valor[0].value))
-            break;
-        case "-":
-            display.innerText=(parseInt(valor[1].value)  -  parseInt(valor[0].value))
-            break;
-        case "*":
-            display.innerText=(parseInt(valor[1].value)  *  parseInt(valor[0].value))
-            break;
-        case "/":
-            if(parseInt(valor[1].value)===0){
-                alert("NO se puede divir sobre 0")
-            }else{
-                display.innerText= (parseInt(valor[1].value)  /  parseInt(valor[0].value)).toFixed(8)
-            }
-            break;
-        default:
-            console.log("debe elegir un operador")
-            break;
+    if(display.innerText===""){
+        alert("Debe ingresar un valor")
+    }else{
+        switch (operador.innerText) {
+            case "+" :
+                display.innerText=(parseInt(valor[0].value)  +  parseInt(display.innerText))
+                break;
+            case "-":
+                display.innerText=(parseInt(valor[0].value)  -  parseInt(display.innerText))
+                break;
+            case "*":
+                display.innerText=(parseInt(valor[0].value)  *  parseInt(display.innerText))
+                break;
+            case "/":
+                if(parseInt(display.innerText)===0){
+                    alert("NO se puede divir sobre 0")
+                }else{
+                    display.innerText= (parseInt(valor[0].value)  /  parseInt(display.innerText)).toFixed(8)
+                }
+                break;
+            default:
+                alert("debe elegir un operador")
+                break;
+        }
     }
+    
 })
 function limpiar(){
-    valor[1].value = valor[0].value
-    valor[0].value=""
+    valor[0].value = display.innerText
+    display.innerText = ""
 }
 suma.addEventListener("click",()=>{
     operador.innerText = "+"
@@ -51,7 +62,8 @@ division.addEventListener("click",()=>{
     limpiar();
 })
 borrar.addEventListener("click",()=>{
-    valor[1].value = "";
-    valor[0].value ="";
-    display.innerText = ""
+    valor[0].value = "";
+    // valor[0].value ="";
+    display.innerText = "";
+    operador.innerText ="."
 })
